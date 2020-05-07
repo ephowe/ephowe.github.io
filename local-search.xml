@@ -4,6 +4,45 @@
   
   
   <entry>
+    <title>blog架设指南</title>
+    <link href="/2020/05/07/blog%E6%9E%B6%E8%AE%BE%E6%8C%87%E5%8D%97/"/>
+    <url>/2020/05/07/blog%E6%9E%B6%E8%AE%BE%E6%8C%87%E5%8D%97/</url>
+    
+    <content type="html"><![CDATA[<h1 id="hexo-blog架设指南"><a href="#hexo-blog架设指南" class="headerlink" title="hexo blog架设指南"></a>hexo blog架设指南</h1><h3 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h3><pre><code class="hljs bash">$ npm install -g hexo-cli</code></pre><h3 id="生成Blog目录"><a href="#生成Blog目录" class="headerlink" title="生成Blog目录"></a>生成Blog目录</h3><pre><code class="hljs bash"><span class="hljs-comment">#  安装 Hexo 完成后，请执行下列命令，Hexo 将会在指定文件夹中新建所需要的文件。</span>$ hexo init &lt;folder&gt;$ <span class="hljs-built_in">cd</span> &lt;folder&gt;<span class="hljs-comment">#安装项目所需依赖</span>$ npm install</code></pre><h3 id="此时Blog项目目录结构如下"><a href="#此时Blog项目目录结构如下" class="headerlink" title="此时Blog项目目录结构如下"></a>此时Blog项目目录结构如下</h3><pre><code class="hljs bash"><span class="hljs-comment"># 新建完成后，项目内子文件目录如下：</span>.├── _config.yml <span class="hljs-comment"># 网站的配置信息，可以在此配置大部分的参数</span>├── package.json <span class="hljs-comment"># 应用程序的信息。EJS, Stylus 和 Markdown renderer 已默认安装，可以自由移除</span>├── scaffolds <span class="hljs-comment"># 模版文件夹。当新建文章时，Hexo 会根据 scaffold 来建立文件</span>├── <span class="hljs-built_in">source</span> <span class="hljs-comment"># 资源文件夹是存放用户资源的地方</span>|   ├── _drafts|   └── _posts <span class="hljs-comment">#通过 hexo new 命令生成的文档保存在此  </span>└── themes <span class="hljs-comment"># 主题文件夹。Hexo 会根据主题来生成静态页面</span></code></pre><h3 id="创建文章"><a href="#创建文章" class="headerlink" title="创建文章"></a>创建文章</h3><pre><code class="hljs bash">$ hexo new &lt;artcle name&gt;or$ hexo n &lt;artcle name&gt;</code></pre><h3 id="预览服务"><a href="#预览服务" class="headerlink" title="预览服务"></a>预览服务</h3><pre><code class="hljs bash">$ hexo serveror$ hexo s</code></pre><h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><pre><code class="hljs bash">$ hexo generateor$ hexo g</code></pre><h3 id="部署Blog"><a href="#部署Blog" class="headerlink" title="部署Blog"></a>部署Blog</h3><pre><code class="hljs bash">$ hexo deployor $ hexo d</code></pre><h3 id="部署到Git"><a href="#部署到Git" class="headerlink" title="部署到Git"></a>部署到Git</h3><pre><code class="hljs bash"><span class="hljs-comment"># 安装插件</span>$ npm install hexo-deployer-git --save<span class="hljs-comment">#编辑_config.yml</span><span class="hljs-comment"># Deployment</span><span class="hljs-comment"># Docs: https://hexo.io/docs/deployment.html</span><span class="hljs-comment"># 修改deploy字段</span>deploy:  <span class="hljs-built_in">type</span>: git <span class="hljs-comment"># 部署方式为GIT</span>  repo: https://github.com/ephowe/ephowe.github.io.git <span class="hljs-comment"># 仓库地址</span>  branch: master <span class="hljs-comment"># 分支</span><span class="hljs-comment">#部署</span>$ hexo d<span class="hljs-comment">#输入GITHUB帐号密码</span></code></pre><h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ol><li><a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">hexo官方文档</a></li></ol>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>mosh安装记录</title>
+    <link href="/2020/04/27/mosh%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/"/>
+    <url>/2020/04/27/mosh%E5%AE%89%E8%A3%85%E8%AE%B0%E5%BD%95/</url>
+    
+    <content type="html"><![CDATA[<pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/keithw/mosh <span class="hljs-built_in">cd</span> mosh ./autogen.sh ./configure --prefix=/usr/<span class="hljs-built_in">local</span>/moshmake &amp;&amp; make install<span class="hljs-comment">#创建快捷方式</span>ln -s /usr/<span class="hljs-built_in">local</span>/mosh/bin/mosh /usr/bin/mosh</code></pre><pre><code class="hljs bash"><span class="hljs-comment">#./autogen.sh:行47: autoreconf: 未找到命令</span><span class="hljs-comment">#解决方法：</span>yum  -y install autoconf automake libtool<span class="hljs-comment">#configure: error: cannot find protoc, the Protocol Buffers compiler</span><span class="hljs-comment">#解决方法：</span>yum install -y protobuf-devel<span class="hljs-comment">#configure: error: C++ preprocessor “/lib/cpp” fails sanity</span><span class="hljs-comment">#check See `config.log’ for more details</span><span class="hljs-comment">#解决办法：出现该情况是由于c++编译器的相关package没有安装，以root用户登陆，在终端上执行：</span>yum install -y glibc-headers gcc-c++</code></pre>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Linux笔记</title>
+    <link href="/2020/04/27/Linux%E7%AC%94%E8%AE%B0/"/>
+    <url>/2020/04/27/Linux%E7%AC%94%E8%AE%B0/</url>
+    
+    <content type="html"><![CDATA[<pre><code class="hljs bash"><span class="hljs-comment">#查看系统版本</span>cat /etc/redhat-release<span class="hljs-comment">#查看内核版本</span>cat /proc/version   <span class="hljs-comment">#这个是和内核有关的数据</span>uname -a    <span class="hljs-comment">#显示系统名、节点名称、操作系统的发行版号、内核版本等等</span>uname -r    <span class="hljs-comment">#显示操作系统的发行版号</span></code></pre>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>vue-admin-template学习记录</title>
     <link href="/2020/04/24/vue-admin-template%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
     <url>/2020/04/24/vue-admin-template%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>
@@ -34,7 +73,7 @@
     <link href="/2020/04/24/%E6%88%BF%E5%B1%8B%E5%A5%97%E5%86%85%E9%9D%A2%E7%A7%AF%E7%AE%97%E6%96%B9%E5%BC%8F/"/>
     <url>/2020/04/24/%E6%88%BF%E5%B1%8B%E5%A5%97%E5%86%85%E9%9D%A2%E7%A7%AF%E7%AE%97%E6%96%B9%E5%BC%8F/</url>
     
-    <content type="html"><![CDATA[<h2 id="房屋套内面积算方式"><a href="#房屋套内面积算方式" class="headerlink" title="房屋套内面积算方式"></a>房屋套内面积算方式</h2><p>所谓的套内面积一般是指套内建筑面积，去除公摊之后的面积。最大的面积是建筑面积，它包含了公摊，然后是套内建筑面积，它包含了墙体,最小的是套内实用面积。</p><p>套内使用面积:<br>套内房屋使用面积为套内房屋使用空间的面积，按以下规定计算：</p><ol><li>套内使用面积为套内卧室、起居室、过道、厨房、卫生间、贮藏间、壁柜等空间面积的总和；</li><li>套内楼梯按自然层数的面积总和计入使用面积；</li><li>不包括在结构面积只的套内烟囱、通风道、管道井均计入使用面积；</li><li>内墙面装饰厚度计入使用面积。</li></ol><p>套内建筑面积:<br>商品房的套内建筑面积是指成套商品房（单元房）的套内使用面积、套内墙体面积和阳台建筑面积之和。套内建筑面积不等于地毯面积，完全属于买房人个人私有；与套内使用面积相比，更能完事地反映买房人个人私有部分的产权。</p><p>套内建筑面积的计算公式为：<br>套内建筑面积=套内使用面积+套内墙体面积+阳台建筑面积</p><p>套内墙体面积:<br>套内墙体面积是指商品房各套内使用空间周围的维护或承重墙体所占的面积。商品房的套内境况体分为共用墙及非共用墙两种。</p><p>商品房套内墙体面积的计算法为：</p><ol><li>共用墙包括各套之间的分隔封墙，套与公用建筑空间投影面积的分隔墙以及外墙（包括山墙）；共用墙体水平投影面积的一半计入套内墙体面积。</li><li>非共用墙墙体水平投影面积全部计入套内墙体面积。</li></ol><p>套内阳台建筑面积：<br>按照《建筑面积计算规则》的规定，套内阳台建筑面积按阳台外围与房屋外墙之间的水平投影面积计算。其中：</p><ol><li>原设计的封闭式阳台，按其外围水平投影面积计算建筑面积；</li><li>挑阳台（底阳台）按其底板水平投影面积的一半计算建设筑面积；</li><li>凹阳台按其净面积（含挡板墙墙体面积）的一半计算建筑面积；</li></ol>]]></content>
+    <content type="html"><![CDATA[<h1 id="房屋套内面积算方式"><a href="#房屋套内面积算方式" class="headerlink" title="房屋套内面积算方式"></a>房屋套内面积算方式</h1><p>所谓的套内面积一般是指套内建筑面积，去除公摊之后的面积。最大的面积是建筑面积，它包含了公摊，然后是套内建筑面积，它包含了墙体,最小的是套内实用面积。</p><h3 id="套内使用面积"><a href="#套内使用面积" class="headerlink" title="套内使用面积"></a>套内使用面积</h3><p>套内房屋使用面积为套内房屋使用空间的面积，按以下规定计算：</p><ol><li>套内使用面积为套内卧室、起居室、过道、厨房、卫生间、贮藏间、壁柜等空间面积的总和；</li><li>套内楼梯按自然层数的面积总和计入使用面积；</li><li>不包括在结构面积只的套内烟囱、通风道、管道井均计入使用面积；</li><li>内墙面装饰厚度计入使用面积。</li></ol><h3 id="套内建筑面积"><a href="#套内建筑面积" class="headerlink" title="套内建筑面积"></a>套内建筑面积</h3><p>商品房的套内建筑面积是指成套商品房（单元房）的套内使用面积、套内墙体面积和阳台建筑面积之和。套内建筑面积不等于地毯面积，完全属于买房人个人私有；与套内使用面积相比，更能完事地反映买房人个人私有部分的产权。</p><h3 id="套内建筑面积的计算公式"><a href="#套内建筑面积的计算公式" class="headerlink" title="套内建筑面积的计算公式"></a>套内建筑面积的计算公式</h3><p>套内建筑面积=套内使用面积+套内墙体面积+阳台建筑面积</p><h3 id="套内墙体面积"><a href="#套内墙体面积" class="headerlink" title="套内墙体面积"></a>套内墙体面积</h3><p>套内墙体面积是指商品房各套内使用空间周围的维护或承重墙体所占的面积。商品房的套内境况体分为共用墙及非共用墙两种。</p><h3 id="商品房套内墙体面积的计算法"><a href="#商品房套内墙体面积的计算法" class="headerlink" title="商品房套内墙体面积的计算法"></a>商品房套内墙体面积的计算法</h3><ol><li>共用墙包括各套之间的分隔封墙，套与公用建筑空间投影面积的分隔墙以及外墙（包括山墙）；共用墙体水平投影面积的一半计入套内墙体面积。</li><li>非共用墙墙体水平投影面积全部计入套内墙体面积。</li></ol><h3 id="套内阳台建筑面积"><a href="#套内阳台建筑面积" class="headerlink" title="套内阳台建筑面积"></a>套内阳台建筑面积</h3><p>按照《建筑面积计算规则》的规定，套内阳台建筑面积按阳台外围与房屋外墙之间的水平投影面积计算。其中：</p><ol><li>原设计的封闭式阳台，按其外围水平投影面积计算建筑面积；</li><li>挑阳台（底阳台）按其底板水平投影面积的一半计算建设筑面积；</li><li>凹阳台按其净面积（含挡板墙墙体面积）的一半计算建筑面积；</li></ol>]]></content>
     
     
     
