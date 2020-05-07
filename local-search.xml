@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>vue-admin-template学习记录</title>
+    <link href="/2020/04/24/vue-admin-template%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    <url>/2020/04/24/vue-admin-template%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</url>
+    
+    <content type="html"><![CDATA[<h3 id="中后端框架的大致流程"><a href="#中后端框架的大致流程" class="headerlink" title="中后端框架的大致流程"></a>中后端框架的大致流程</h3><pre><code class="hljs mermaid">graph TBv(Vue) -.Load.-&gt; vr((VueRoute))v -.Load.-&gt; vx((Vuex&lt;br&gt;全局对象))v -.Load.-&gt; rd((Render))vr --&gt; vi(View)vi --&gt; api(Api)vi --&gt; rdapi -.-&gt; vivx -.$.-&gt; vivx -.$.-&gt; vrapi --Request--&gt; s(Server)s -.Response.-&gt; apiapi --Request--&gt; m(Mock)m -.Response.-&gt; apird --&gt; page(Web页面)</code></pre>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>极简版良民证校验码算法分析</title>
+    <link href="/2020/04/24/%E6%9E%81%E7%AE%80%E7%89%88%E8%89%AF%E6%B0%91%E8%AF%81%E6%A0%A1%E9%AA%8C%E7%A0%81%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/"/>
+    <url>/2020/04/24/%E6%9E%81%E7%AE%80%E7%89%88%E8%89%AF%E6%B0%91%E8%AF%81%E6%A0%A1%E9%AA%8C%E7%A0%81%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/</url>
+    
+    <content type="html"><![CDATA[<p>网上看到的PY牛批单行良民证算法</p><pre><code class="hljs python">get_id = <span class="hljs-keyword">lambda</span> s: s + str((<span class="hljs-number">1</span> - (int(s, <span class="hljs-number">13</span>) &lt;&lt; <span class="hljs-number">1</span>)) % <span class="hljs-number">11</span>).replace(<span class="hljs-string">'10'</span>, <span class="hljs-string">'X'</span>)</code></pre><p>等同</p><pre><code class="hljs python">get_id = <span class="hljs-keyword">lambda</span> s: s + str((<span class="hljs-number">1</span> - int(s+<span class="hljs-string">'0'</span>, <span class="hljs-number">13</span>)) % <span class="hljs-number">11</span>).replace(<span class="hljs-string">'10'</span>, <span class="hljs-string">'X'</span>)</code></pre><hr><p>PY余数算法</p><p>余数 = 除数 - { [除数 / 被除数] 此数从数轴往左趋向,若大于0趋向于0,若小于0趋向于负无穷 } * 被除数</p><p>例子:<br>24 % 11 =&gt; 24 - (24/11 =&gt; 2.18 =&gt; 2) * 11 = 2<br>-24 % 11 =&gt; -24 - (-24/11 =&gt; -2.18 =&gt; -3) * 11 = 9</p><hr><p>Wi计算公式 Wi = 2 ^ (i - 1) % 11<br>加权因子的取值 Wi[18 - 1] = [7, 9, 10, 5, 8, 4, 2, 1,    6, 3, 7, 9, 10, 5, 8, 4, 2,    1]</p><p>待校验身份证为17位 + 末位的校验码<br>id = ‘33022719900801032’ + [校验码 = ?]</p><p>Wi计算公式符合高进制向低进制转换的计算方法<br>最后结果需要除以11取余,因此可以采用13进制(11+2)转10进制进行计算<br>由于Wi上限为18,而待校验的ID只有17位,所以最后需要多乘一次2(如将ID提到18位,校验码位临时设为0可以免乘2)</p><p>i = 17 =&gt; [17 - 1]<br>W = { id[i] * [(2+11) ^ (i-1)] + id[i-1] * [(2+11) ^ (i-2)] + … + id[1] * [(2+11) ^ 0] } * 2</p><p>校验码的计算公式 a = (1 - W) % 11<br>校验码的取值 ai[0 - 10] = [1, 0, X, 9, 8, 7, 6, 5, 4, 3, 2]</p><p>计算得出校检码为:<br>n = W % 11 = 7<br>ai[7] = 5<br>等同<br>a = (1 - W) % 11 = 5</p><p>id = 330227199008010325</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>房屋套内面积算方式</title>
+    <link href="/2020/04/24/%E6%88%BF%E5%B1%8B%E5%A5%97%E5%86%85%E9%9D%A2%E7%A7%AF%E7%AE%97%E6%96%B9%E5%BC%8F/"/>
+    <url>/2020/04/24/%E6%88%BF%E5%B1%8B%E5%A5%97%E5%86%85%E9%9D%A2%E7%A7%AF%E7%AE%97%E6%96%B9%E5%BC%8F/</url>
+    
+    <content type="html"><![CDATA[<h2 id="房屋套内面积算方式"><a href="#房屋套内面积算方式" class="headerlink" title="房屋套内面积算方式"></a>房屋套内面积算方式</h2><p>所谓的套内面积一般是指套内建筑面积，去除公摊之后的面积。最大的面积是建筑面积，它包含了公摊，然后是套内建筑面积，它包含了墙体,最小的是套内实用面积。</p><p>套内使用面积:<br>套内房屋使用面积为套内房屋使用空间的面积，按以下规定计算：</p><ol><li>套内使用面积为套内卧室、起居室、过道、厨房、卫生间、贮藏间、壁柜等空间面积的总和；</li><li>套内楼梯按自然层数的面积总和计入使用面积；</li><li>不包括在结构面积只的套内烟囱、通风道、管道井均计入使用面积；</li><li>内墙面装饰厚度计入使用面积。</li></ol><p>套内建筑面积:<br>商品房的套内建筑面积是指成套商品房（单元房）的套内使用面积、套内墙体面积和阳台建筑面积之和。套内建筑面积不等于地毯面积，完全属于买房人个人私有；与套内使用面积相比，更能完事地反映买房人个人私有部分的产权。</p><p>套内建筑面积的计算公式为：<br>套内建筑面积=套内使用面积+套内墙体面积+阳台建筑面积</p><p>套内墙体面积:<br>套内墙体面积是指商品房各套内使用空间周围的维护或承重墙体所占的面积。商品房的套内境况体分为共用墙及非共用墙两种。</p><p>商品房套内墙体面积的计算法为：</p><ol><li>共用墙包括各套之间的分隔封墙，套与公用建筑空间投影面积的分隔墙以及外墙（包括山墙）；共用墙体水平投影面积的一半计入套内墙体面积。</li><li>非共用墙墙体水平投影面积全部计入套内墙体面积。</li></ol><p>套内阳台建筑面积：<br>按照《建筑面积计算规则》的规定，套内阳台建筑面积按阳台外围与房屋外墙之间的水平投影面积计算。其中：</p><ol><li>原设计的封闭式阳台，按其外围水平投影面积计算建筑面积；</li><li>挑阳台（底阳台）按其底板水平投影面积的一半计算建设筑面积；</li><li>凹阳台按其净面积（含挡板墙墙体面积）的一半计算建筑面积；</li></ol>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>first</title>
+    <link href="/2020/04/22/first/"/>
+    <url>/2020/04/22/first/</url>
+    
+    <content type="html"><![CDATA[<h1 id="First"><a href="#First" class="headerlink" title="First"></a>First</h1><h2 id="test"><a href="#test" class="headerlink" title="test"></a>test</h2><pre><code class="hljs python">def __init__=='__main__':    <span class="hljs-keyword">pass</span></code></pre><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;    <span class="hljs-keyword">return</span>;&#125;</code></pre><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">test</span> </span>&#123;&#125;</code></pre><pre><code class="hljs mermaid">sequenceDiagramAlice -&gt;&gt; Bob: Hello Bob, how are you?Bob--&gt;&gt;John: How about you John?Bob--x Alice: I am good thanks!Bob-x John: I am good thanks!Note right of John: Bob thinks a long&lt;br&#x2F;&gt;long time, so long&lt;br&#x2F;&gt;that the text does&lt;br&#x2F;&gt;not fit on a row.Bob--&gt;Alice: Checking with John...Alice-&gt;John: Yes... John, how are you?</code></pre><pre><code class="hljs mermaid">graph LRA[Square Rect] -- Link text --&gt; B((Circle))A --&gt; C(Round Rect)B --&gt; D&#123;Rhombus&#125;C --&gt; D</code></pre><h2 id="SmartyPants"><a href="#SmartyPants" class="headerlink" title="SmartyPants"></a>SmartyPants</h2><p>SmartyPants converts ASCII punctuation characters into “smart” typographic punctuation HTML entities. For example:</p><table><thead><tr><th></th><th>ASCII</th><th>HTML</th></tr></thead><tbody><tr><td>Single backticks</td><td><code>&#39;Isn&#39;t this fun?&#39;</code></td><td>‘Isn’t this fun?’</td></tr><tr><td>Quotes</td><td><code>&quot;Isn&#39;t this fun?&quot;</code></td><td>“Isn’t this fun?”</td></tr><tr><td>Dashes</td><td><code>-- is en-dash, --- is em-dash</code></td><td>– is en-dash, — is em-dash</td></tr></tbody></table><p><img src="https://www.baidu.com/img/bd_logo1.png" srcset="/img/loading.gif" alt="百度logo"></p><p>有序列表演示：</p><ol><li>内容1</li><li>内容1</li><li>内容1</li></ol><p>无序列表演示:</p><ul><li>内容1</li><li>内容2</li><li>内容3</li></ul><p>多选演示：</p><ul><li><input disabled="" type="checkbox"> 选项1</li><li><input disabled="" type="checkbox"> 选项2</li><li><input checked="" disabled="" type="checkbox"> 选项3</li></ul><p>脚注演示：<br>内容plane|<a href="灰机">^plane</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="/2020/04/22/hello-world/"/>
+    <url>/2020/04/22/hello-world/</url>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  
+</search>
